@@ -198,7 +198,7 @@
                 
                 const personName = document.getElementById('person-name').value;
 
-                if (config.api.endpoint === 'https://stable-audio-proxy.edoardo-beltramo.workers.dev/') {
+                if (config.api.endpoint === 'https://YOUR_WORKER_SUBDOMAIN.workers.dev') {
                     displayError("API endpoint is not configured. Please add your Cloudflare Worker URL to the config object.");
                     return;
                 }
