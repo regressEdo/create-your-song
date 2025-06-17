@@ -62,7 +62,6 @@
 
     <!-- =========== TOP BANNER SECTION =========== -->
     <!-- REPLACE THE IMAGE: Change the src attribute of the <img> tag below. -->
-    <!-- For best results, use a wide image (e.g., 1920x600 pixels). -->
     <header class="relative h-64 md:h-80 w-full">
         <img 
             src="https://placehold.co/1920x600/1a202c/718096?text=Your+Stable+Audio+Banner" 
@@ -84,11 +83,9 @@
             <div>
                 <h2 class="text-3xl font-semibold mb-2 text-cyan-400">Step 1: Dedicate Your Song</h2>
                 <p class="text-gray-400 mb-4">Who is this masterpiece for? This helps create a title.</p>
-                <label for="person-name" class="sr-only">Name of the person</label>
                 <input 
                     type="text" 
                     id="person-name" 
-                    name="person-name"
                     required
                     class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition"
                     placeholder="e.g., The Team, my best friend Jane"
@@ -100,7 +97,6 @@
                 <h2 class="text-3xl font-semibold mb-2 text-cyan-400">Step 2: Build Your Prompt</h2>
                 <p class="text-gray-400 mb-4">Select keywords to define the genre, mood, and style of your song.</p>
                 <div id="keywords-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-4">
-                    <!-- Keyword buttons will be dynamically inserted here -->
                 </div>
             </div>
 
@@ -113,7 +109,7 @@
                 >
                     <span class="spinner mr-3"></span>
                     <span class="button-text">Generate Song</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-2 button-text"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 button-text" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
                 </button>
             </div>
         </form>
@@ -123,10 +119,8 @@
             <h2 class="text-3xl font-semibold mb-6 text-green-400">Your Masterpiece is Ready!</h2>
             <div class="bg-gray-800 rounded-xl p-6 md:p-8 shadow-2xl max-w-2xl mx-auto border border-gray-700">
                 <h3 id="song-title" class="text-2xl font-bold mb-6"></h3>
-                <audio id="audio-player" controls class="w-full mb-6">
-                    Your browser does not support the audio element.
-                </audio>
-                <a id="download-link" href="#" download="generated-song.mp3" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 rounded-full shadow-lg transition-all duration-300">
+                <audio id="audio-player" controls class="w-full mb-6"></audio>
+                <a id="download-link" href="#" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 rounded-full shadow-lg transition-all duration-300">
                     Download Song
                 </a>
             </div>
@@ -141,15 +135,8 @@
     <footer class="bg-gray-900 border-t border-gray-800 mt-16">
         <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
             <div class="flex justify-center space-x-6">
-                <!-- Replace # with your actual social media links -->
-                <a href="#" class="text-gray-400 hover:text-white transition">
-                    <span class="sr-only">Twitter</span>
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.71v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-white transition">
-                    <span class="sr-only">GitHub</span>
-                    <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"/></svg>
-                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition">Twitter</a>
+                <a href="#" class="text-gray-400 hover:text-white transition">GitHub</a>
             </div>
             <p class="mt-8 text-center text-base text-gray-400">&copy; 2025 AI Music Generator. All Rights Reserved.</p>
         </div>
@@ -160,7 +147,6 @@
 
             // ============== CONFIGURATION ("ENV" VARIABLES) ==============
             const config = {
-                // To change the keywords, simply edit this list.
                 keywords: [
                     '80s Synthwave', 'Acoustic Guitar', 'Happy', 'Sad', 'Epic',
                     'Love Ballad', 'Rock Anthem', 'Chill Lofi', 'Upbeat Pop', 'Heavy Metal',
@@ -168,9 +154,9 @@
                     'Nostalgic', 'Inspirational', 'Mysterious', 'Jazz Club', 'Reggae Vibe'
                 ],
                 api: {
-                    // IMPORTANT: Replace with your actual Stability AI API key.
-                    key: 'sk-aXN6UI6kt6OxBsZOAoPeVPWQfqRRPKsQf1DxfWlkcwr3EsYP',
-                    endpoint: 'https://api.stability.ai/v1/generation/stable-audio-1.0/generate-sound'
+                    // **IMPORTANT**: Replace with your actual Cloudflare Worker URL from Step 4.
+                    endpoint: 'https://stable-audio-proxy.edoardo-beltramo.workers.dev/'
+                    // Notice the API KEY is GONE from here. It's now secure.
                 }
             };
             // ==========================================================
@@ -184,12 +170,11 @@
             let selectedKeywords = new Set();
 
             function setupKeywords() {
-                keywordsContainer.innerHTML = ''; // Clear existing
+                keywordsContainer.innerHTML = '';
                 config.keywords.forEach(keyword => {
                     const button = document.createElement('button');
                     button.type = 'button';
                     button.textContent = keyword;
-                    button.dataset.keyword = keyword;
                     button.className = 'keyword-btn w-full bg-gray-800 text-gray-300 border border-gray-700 rounded-lg px-2 py-3 text-sm md:text-base hover:bg-gray-700 hover:border-cyan-500';
                     
                     button.addEventListener('click', () => {
@@ -213,8 +198,8 @@
                 
                 const personName = document.getElementById('person-name').value;
 
-                if (config.api.key === 'YOUR_STABILITY_AI_KEY_HERE') {
-                    displayError("API Key is missing. Please add your Stability AI key to the config object in the script.");
+                if (config.api.endpoint === 'https://stable-audio-proxy.edoardo-beltramo.workers.dev/') {
+                    displayError("API endpoint is not configured. Please add your Cloudflare Worker URL to the config object.");
                     return;
                 }
                 if (selectedKeywords.size === 0) {
@@ -227,31 +212,18 @@
                 try {
                     const prompt = Array.from(selectedKeywords).join(', ');
                     
-                    // This is the actual API call to Stability AI
+                    // Call your secure Cloudflare Worker proxy
                     const response = await fetch(config.api.endpoint, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'audio/mpeg', // We want the audio file directly
-                            'Authorization': `Bearer ${config.api.key}`
-                        },
-                        body: JSON.stringify({
-                            text: prompt,
-                            // You can add other parameters here as per Stable Audio docs
-                            // e.g., duration: 45
-                        })
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text: prompt })
                     });
 
                     if (!response.ok) {
-                        // Try to get a more specific error message from the API
-                        const errorData = await response.json();
-                        throw new Error(`API Error (${response.status}): ${errorData.message || 'An unknown error occurred'}`);
+                        throw new Error(`API Error (${response.status}): Could not generate audio. Please check the prompt and try again.`);
                     }
 
-                    // Get the audio data as a blob
                     const audioBlob = await response.blob();
-                    
-                    // Create a URL for the blob to use in the audio player and download link
                     const audioUrl = URL.createObjectURL(audioBlob);
 
                     displayResults({
@@ -268,12 +240,10 @@
 
             function displayResults(data) {
                 document.getElementById('song-title').textContent = data.title;
-                const audioPlayer = document.getElementById('audio-player');
+                document.getElementById('audio-player').src = data.audioUrl;
                 const downloadLink = document.getElementById('download-link');
-                
-                audioPlayer.src = data.audioUrl;
                 downloadLink.href = data.audioUrl;
-                downloadLink.download = `${data.title.replace(/\s+/g, '_')}.mp3`; // e.g., An_Anthem_for_Jane.mp3
+                downloadLink.download = `${data.title.replace(/\s+/g, '_')}.mp3`;
                 
                 resultsSection.classList.remove('hidden');
                 resultsSection.scrollIntoView({ behavior: 'smooth' });
