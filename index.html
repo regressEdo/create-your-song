@@ -154,9 +154,8 @@
                     'Nostalgic', 'Inspirational', 'Mysterious', 'Jazz Club', 'Reggae Vibe'
                 ],
                 api: {
-                    // **IMPORTANT**: Replace with your actual Cloudflare Worker URL from Step 4.
+                    // This is now configured with your specific, secure worker URL.
                     endpoint: 'https://stable-audio-proxy.edoardo-beltramo.workers.dev/'
-                    // Notice the API KEY is GONE from here. It's now secure.
                 }
             };
             // ==========================================================
@@ -198,8 +197,8 @@
                 
                 const personName = document.getElementById('person-name').value;
 
-                if (config.api.endpoint === 'https://YOUR_WORKER_SUBDOMAIN.workers.dev') {
-                    displayError("API endpoint is not configured. Please add your Cloudflare Worker URL to the config object.");
+                if (!config.api.endpoint || config.api.endpoint.includes('YOUR_WORKER_SUBDOMAIN')) {
+                    displayError("API endpoint is not configured correctly. Please check the script.");
                     return;
                 }
                 if (selectedKeywords.size === 0) {
