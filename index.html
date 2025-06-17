@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Music Generator</title>
+    <title>Stable Audio AI Generator</title>
     
+    <!-- =========== FAVICON SECTION =========== -->
+    <!-- REPLACE THE FAVICON: Change the href attribute below to the path of your favicon image. -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18V5l12-2v13'%3E%3C/path%3E%3Ccircle cx='6' cy='18' r='3'%3E%3C/circle%3E%3Ccircle cx='18' cy='16' r='3'%3E%3C/circle%3E%3C/svg%3E">
+    <!-- ======================================= -->
+
     <!-- Tailwind CSS for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -60,13 +65,13 @@
     <!-- For best results, use a wide image (e.g., 1920x600 pixels). -->
     <header class="relative h-64 md:h-80 w-full">
         <img 
-            src="https://placehold.co/1920x600/1a202c/718096?text=Your+AI+Music+Banner" 
+            src="https://placehold.co/1920x600/1a202c/718096?text=Your+Stable+Audio+Banner" 
             alt="AI Music Banner" 
             class="w-full h-full object-cover"
             onerror="this.onerror=null;this.src='https://placehold.co/1920x600/1a202c/718096?text=Image+Error';"
         >
         <div class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-center tracking-tight">Create Your AI Anthem</h1>
+            <h1 class="text-4xl md:text-6xl font-bold text-center tracking-tight">Generate with Stable Audio</h1>
         </div>
     </header>
     <!-- ========================================== -->
@@ -78,7 +83,7 @@
             <!-- Step 1: Dedication Section -->
             <div>
                 <h2 class="text-3xl font-semibold mb-2 text-cyan-400">Step 1: Dedicate Your Song</h2>
-                <p class="text-gray-400 mb-4">Who is this masterpiece for? Enter a name below.</p>
+                <p class="text-gray-400 mb-4">Who is this masterpiece for? This helps create a title.</p>
                 <label for="person-name" class="sr-only">Name of the person</label>
                 <input 
                     type="text" 
@@ -86,14 +91,14 @@
                     name="person-name"
                     required
                     class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition"
-                    placeholder="e.g., Jane, my best friend"
+                    placeholder="e.g., The Team, my best friend Jane"
                 >
             </div>
 
             <!-- Step 2: Keywords Section -->
             <div>
-                <h2 class="text-3xl font-semibold mb-2 text-cyan-400">Step 2: Choose Your Keywords</h2>
-                <p class="text-gray-400 mb-4">Select a few keywords to set the genre, mood, and style of your song.</p>
+                <h2 class="text-3xl font-semibold mb-2 text-cyan-400">Step 2: Build Your Prompt</h2>
+                <p class="text-gray-400 mb-4">Select keywords to define the genre, mood, and style of your song.</p>
                 <div id="keywords-container" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 md:gap-4">
                     <!-- Keyword buttons will be dynamically inserted here -->
                 </div>
@@ -117,11 +122,13 @@
         <div id="results-section" class="hidden mt-16 text-center">
             <h2 class="text-3xl font-semibold mb-6 text-green-400">Your Masterpiece is Ready!</h2>
             <div class="bg-gray-800 rounded-xl p-6 md:p-8 shadow-2xl max-w-2xl mx-auto border border-gray-700">
-                <h3 id="song-title" class="text-2xl font-bold mb-2"></h3>
-                <p id="song-artist" class="text-gray-400 mb-6"></p>
-                <audio id="audio-player" controls class="w-full">
+                <h3 id="song-title" class="text-2xl font-bold mb-6"></h3>
+                <audio id="audio-player" controls class="w-full mb-6">
                     Your browser does not support the audio element.
                 </audio>
+                <a id="download-link" href="#" download="generated-song.mp3" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 rounded-full shadow-lg transition-all duration-300">
+                    Download Song
+                </a>
             </div>
         </div>
          <!-- Error Message Box -->
@@ -151,8 +158,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            // ============== CONFIGURATION "ENV" VARIABLES ==============
-            // All major settings are here for easy editing.
+            // ============== CONFIGURATION ("ENV" VARIABLES) ==============
             const config = {
                 // To change the keywords, simply edit this list.
                 keywords: [
@@ -161,12 +167,10 @@
                     'Orchestral', 'Piano Solo', 'Energetic Drums', 'Funky Bassline', 'Dreamy',
                     'Nostalgic', 'Inspirational', 'Mysterious', 'Jazz Club', 'Reggae Vibe'
                 ],
-                // API settings
                 api: {
-                    // Replace with your actual API endpoint if you have one
-                    endpoint: 'https://api.some-music-service.com/generate',
-                    // Replace with your actual API key
-                    key: 'YOUR_API_KEY_HERE'
+                    // IMPORTANT: Replace with your actual Stability AI API key.
+                    key: 'YOUR_STABILITY_AI_KEY_HERE',
+                    endpoint: 'https://api.stability.ai/v1/generation/stable-audio-1.0/generate-sound'
                 }
             };
             // ==========================================================
@@ -179,11 +183,11 @@
             
             let selectedKeywords = new Set();
 
-            // Function to create and display keyword buttons
             function setupKeywords() {
+                keywordsContainer.innerHTML = ''; // Clear existing
                 config.keywords.forEach(keyword => {
                     const button = document.createElement('button');
-                    button.type = 'button'; // Prevent form submission
+                    button.type = 'button';
                     button.textContent = keyword;
                     button.dataset.keyword = keyword;
                     button.className = 'keyword-btn w-full bg-gray-800 text-gray-300 border border-gray-700 rounded-lg px-2 py-3 text-sm md:text-base hover:bg-gray-700 hover:border-cyan-500';
@@ -209,8 +213,12 @@
                 
                 const personName = document.getElementById('person-name').value;
 
+                if (config.api.key === 'YOUR_STABILITY_AI_KEY_HERE') {
+                    displayError("API Key is missing. Please add your Stability AI key to the config object in the script.");
+                    return;
+                }
                 if (selectedKeywords.size === 0) {
-                    displayError("Please select at least one keyword for the song.");
+                    displayError("Please select at least one keyword for your prompt.");
                     return;
                 }
 
@@ -219,13 +227,37 @@
                 try {
                     const prompt = Array.from(selectedKeywords).join(', ');
                     
-                    // =================== IMPORTANT MOCK API CALL ===================
-                    // To make this functional, replace this mock function call
-                    // with a real `fetch` request using your actual API details.
-                    const result = await mockApiCall(personName, prompt);
-                    // =============================================================
+                    // This is the actual API call to Stability AI
+                    const response = await fetch(config.api.endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'audio/mpeg', // We want the audio file directly
+                            'Authorization': `Bearer ${config.api.key}`
+                        },
+                        body: JSON.stringify({
+                            text: prompt,
+                            // You can add other parameters here as per Stable Audio docs
+                            // e.g., duration: 45
+                        })
+                    });
 
-                    displayResults(result);
+                    if (!response.ok) {
+                        // Try to get a more specific error message from the API
+                        const errorData = await response.json();
+                        throw new Error(`API Error (${response.status}): ${errorData.message || 'An unknown error occurred'}`);
+                    }
+
+                    // Get the audio data as a blob
+                    const audioBlob = await response.blob();
+                    
+                    // Create a URL for the blob to use in the audio player and download link
+                    const audioUrl = URL.createObjectURL(audioBlob);
+
+                    displayResults({
+                        title: `An Anthem for ${personName}`,
+                        audioUrl: audioUrl
+                    });
 
                 } catch (error) {
                     displayError(error.message);
@@ -234,27 +266,14 @@
                 }
             });
 
-            function mockApiCall(personName, prompt) {
-                console.log('Simulating API call with:', { personName, prompt });
-                return new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        if (Math.random() > 0.1) { // 90% chance of success
-                            resolve({
-                                title: `An Anthem for ${personName}`,
-                                artist: "AI Vibes",
-                                audioUrl: "" // Real API would return an MP3 URL here
-                            });
-                        } else {
-                            reject(new Error("The AI composer got a little shy. Please try again."));
-                        }
-                    }, 4000); // 4-second delay
-                });
-            }
-
             function displayResults(data) {
                 document.getElementById('song-title').textContent = data.title;
-                document.getElementById('song-artist').textContent = `By ${data.artist}`;
-                document.getElementById('audio-player').src = data.audioUrl;
+                const audioPlayer = document.getElementById('audio-player');
+                const downloadLink = document.getElementById('download-link');
+                
+                audioPlayer.src = data.audioUrl;
+                downloadLink.href = data.audioUrl;
+                downloadLink.download = `${data.title.replace(/\s+/g, '_')}.mp3`; // e.g., An_Anthem_for_Jane.mp3
                 
                 resultsSection.classList.remove('hidden');
                 resultsSection.scrollIntoView({ behavior: 'smooth' });
@@ -265,7 +284,6 @@
                 errorBox.classList.remove('hidden');
             }
 
-            // Initialize the keyword buttons when the page loads
             setupKeywords();
         });
     </script>
